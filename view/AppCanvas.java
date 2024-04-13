@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
@@ -39,13 +38,13 @@ public class AppCanvas extends JPanel{
             drawMessages(g2, App.model.messages);
     }
 
-    void drawScore(Graphics2D g2, int score){
+    private void drawScore(Graphics2D g2, int score){
         g2.setColor(Color.WHITE);
         g2.setFont(new Font("Courier", Font.BOLD, 24));
         g2.drawString("Score: " + score, AppCanvas.WIDTH - 180, 30);
     }
 
-    void drawSnake(Graphics2D g2, Snake snake){
+    private void drawSnake(Graphics2D g2, Snake snake){
 
         boolean filled = true;
         g2.setColor(Color.blue);
@@ -67,13 +66,13 @@ public class AppCanvas extends JPanel{
         else g2.draw(r);
     }
 
-    void drawFood(Graphics2D g2, Food food){
+    private void drawFood(Graphics2D g2, Food food){
         var e = new Ellipse2D.Float(food.x, food.y, AppWindow.GRID_SIZE, AppWindow.GRID_SIZE);
         g2.setColor(Color.PINK);
         g2.fill(e);
     }
 
-    void drawMessages(Graphics2D g2, String messages){
+    private void drawMessages(Graphics2D g2, String messages){
         g2.setColor(Color.yellow);
         g2.setFont(new Font("Courier New", Font.PLAIN, 28));
         g2.drawString(messages, 50, 140);
