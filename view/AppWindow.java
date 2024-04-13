@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 
 import controller.ButtonPressListener;
 import controller.KeyPressListener;
+import view.statePattern.GameState;
+import view.statePattern.GameStateInit;
 
 public class AppWindow extends JFrame{
 
@@ -23,7 +25,7 @@ public class AppWindow extends JFrame{
     public static final String RESTART_ACTION = "App Restart";
     public static final String EXIT_ACTION = "Exit";
 
-
+    private GameState gameState;
 
     public void init(){
         Container cp = getContentPane(); 
@@ -52,8 +54,23 @@ public class AppWindow extends JFrame{
         startPauseButton.setFocusable(false);
         restartButton.setFocusable(false);
         exitButton.setFocusable(false);
+
+        gameState = new GameStateInit();
+
+
     }
 
+    public void goNextState(){
+        gameState.goNext(this);
+    }
+
+    public GameState getGameState(){
+        return gameState;
+    }    
+
+    public void setGameState(GameState gameState){
+        this.gameState = gameState;
+    }
     public AppCanvas getCanvas(){
         return canvas;
     }

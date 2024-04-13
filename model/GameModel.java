@@ -2,6 +2,7 @@ package model;
 
 import java.util.Random;
 
+import controller.App;
 import view.AppCanvas;
 import view.AppWindow;
 
@@ -40,5 +41,11 @@ public class GameModel {
                 return true;
         }
         return false;
+    }
+
+    public boolean snakeGotFood(){
+        var food = App.model.food;
+        var head = App.model.snake.nodes.get(0);
+        return food.x == head.x && food.y == head.y;
     }
 }
