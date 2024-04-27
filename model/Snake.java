@@ -7,6 +7,8 @@ import model.observerPattern.SnakeObserver;
 import model.observerPattern.Subject;
 import view.AppCanvas;
 import view.AppWindow;
+import model.strategyPattern.DirectionStrategy;
+import model.strategyPattern.rightStrategy;
 
 public class Snake implements Subject{
 
@@ -15,18 +17,18 @@ public class Snake implements Subject{
     private final int INIT_XLOC = AppWindow.GRID_SIZE * 7;
     private final int INIT_YLOC = AppWindow.GRID_SIZE * 3;
     private final int INIT_NODES = 6;
-    private Direction direction;
+    private DirectionStrategy direction;
 
     private ArrayList<SnakeObserver> observers = new ArrayList<>();
 
     public Snake(){
         init();
-
+        setDirectionStrategy(new rightStrategy());
     }
 
     public void init(){
         nodes.clear();
-        direction = Direction.RIGHT;
+        direction = new rightStrategy();
         for (int i = 0; i < INIT_NODES; i++){
             int x = INIT_XLOC - i * AppWindow.GRID_SIZE;
             int y = INIT_YLOC;
@@ -40,20 +42,7 @@ public class Snake implements Subject{
             nodes.get(i).y = nodes.get(i-1).y;
         }
         SnakeNode head = nodes.get(0);
-        switch (direction){
-            case LEFT:
-                head.x -= AppWindow.GRID_SIZE;
-                break;
-            case RIGHT:
-                head.x += AppWindow.GRID_SIZE;
-                break; 
-            case UP:
-                head.y -= AppWindow.GRID_SIZE;
-                break;
-            case DOWN:
-                head.y += AppWindow.GRID_SIZE;
-                break;
-        }
+        direction.move(head, AppWindow.GRID_SIZE);
     }
 
     public void falling(){
@@ -63,11 +52,11 @@ public class Snake implements Subject{
         }
     }
     
-    public Direction getDirection(){
+    public DirectionStrategy getDirection(){
         return direction;
     }
 
-    public void setDirection(Direction direction) {
+    public void setDirectionStrategy(DirectionStrategy direction) {
         this.direction = direction;
     }
 

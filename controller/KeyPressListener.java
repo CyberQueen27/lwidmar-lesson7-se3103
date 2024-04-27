@@ -3,7 +3,10 @@ package controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import model.Direction;
+import model.strategyPattern.downStrategy;
+import model.strategyPattern.leftStrategy;
+import model.strategyPattern.rightStrategy;
+import model.strategyPattern.upStrategy;
 
 public class KeyPressListener implements KeyListener {
 
@@ -16,16 +19,16 @@ public class KeyPressListener implements KeyListener {
         int key = e.getKeyCode();
         switch (key){
             case KeyEvent.VK_LEFT:
-                App.model.snake.setDirection(Direction.LEFT);
+                App.model.snake.setDirectionStrategy(new leftStrategy());
                 break;
             case KeyEvent.VK_RIGHT:
-                App.model.snake.setDirection(Direction.RIGHT);
+                App.model.snake.setDirectionStrategy(new rightStrategy());
                 break;
             case KeyEvent.VK_UP:
-                App.model.snake.setDirection(Direction.UP);
+                App.model.snake.setDirectionStrategy(new upStrategy());
                 break;
             case KeyEvent.VK_DOWN:
-            App.model.snake.setDirection(Direction.DOWN);
+            App.model.snake.setDirectionStrategy(new downStrategy());
                 break;
         }
     }
